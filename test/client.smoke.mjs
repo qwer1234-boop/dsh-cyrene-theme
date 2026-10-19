@@ -413,6 +413,15 @@ boxE.registered.find((r) => r.registration.id === 'cyrene-theme').component()
 const editor = bootE.refs[0].current.children[0]
 ok('设置页组件跑起来后挂出了编辑器', editor?.className === 'cyre-editor', editor?.className)
 
+const topUpLink = editor.querySelector('[data-role="top-up"]')
+const usageLink = editor.querySelector('[data-role="usage"]')
+ok(
+  '面板底部有官方充值 / 余额入口',
+  topUpLink?.attrs.href === 'https://platform.deepseek.com/top_up' &&
+    usageLink?.attrs.href === 'https://platform.deepseek.com/usage',
+  [topUpLink?.attrs.href, usageLink?.attrs.href],
+)
+
 const themeBox = editor.querySelector('[data-role="theme"]')
 const personaArea = editor.querySelector('[data-role="persona"]')
 const saveBtn = editor.querySelector('[data-role="save"]')
