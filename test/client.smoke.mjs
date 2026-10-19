@@ -416,7 +416,13 @@ ok('设置页组件跑起来后挂出了编辑器', editor?.className === 'cyre-
 const topUpLink = editor.querySelector('[data-role="top-up"]')
 const usageLink = editor.querySelector('[data-role="usage"]')
 const turnSoundBox = editor.querySelector('[data-role="turn-sound"]')
+const turnVolumeRange = editor.querySelector('[data-role="turn-volume"]')
 ok('面板有本轮提示音开关', turnSoundBox !== null, turnSoundBox)
+ok(
+  '面板有提示音音量滑块，默认 22%',
+  turnVolumeRange !== null && Number(turnVolumeRange.value) === 0.22,
+  turnVolumeRange?.value,
+)
 ok(
   '面板底部有官方充值 / 余额入口',
   topUpLink?.attrs.href === 'https://platform.deepseek.com/top_up' &&

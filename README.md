@@ -252,6 +252,7 @@ body[data-dsh-cyrene] [data-composer-input][data-placeholder^="Describe what you
 - 人民币金额按 DeepSeek 官方 CNY 价估算：缓存命中输入、缓存未命中输入、输出分别计价；工作日高峰时段翻倍，法定节假日未单独扣除。
 - 只在 `tokenUsage` 字段存在时显示；历史轮次也会显示，但不会补响提示音。
 - 提示音是一段两音符的轻提示，只对刚结束（15 秒内）的新轮次播放；面板顶部的「本轮提示音」开关可关闭，偏好存在浏览器 `localStorage` 的 `cyrene-turn-sound`。
+- 默认音量 22%，可在「✦ 昔涟」面板里用「提示音音量」滑块调到 5%–50%，偏好存在 `cyrene-turn-volume`；松手时会试听一次。
 
 > 金额是估算，实际扣费以 DeepSeek 平台账单为准；官方价格页：<https://api-docs.deepseek.com/zh-cn/quick_start/pricing/>。
 
