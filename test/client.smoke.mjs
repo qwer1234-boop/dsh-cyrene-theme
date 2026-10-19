@@ -268,8 +268,8 @@ boot.exports.apply(box.ctx)
 await tick()
 
 ok(
-  '注册了 6 个 effect（样式 / 作用域 / 释放 loader 误标的样式 / 焦点同步 / 背景层 / 活页面取证）',
-  box.effects.length === 6 && box.effects[0].label.endsWith('stylesheet') && box.effects[3].label.endsWith('resync on focus') && box.effects[4].label.endsWith('background layer') && box.effects[5].label.endsWith('dom report'),
+  '注册了 7 个 effect（样式 / 作用域 / 提示音 / 释放 loader 误标的样式 / 焦点同步 / 背景层 / 活页面取证）',
+  box.effects.length === 7 && box.effects[0].label.endsWith('stylesheet') && box.effects[2].label.endsWith('turn chime') && box.effects[4].label.endsWith('resync on focus') && box.effects[5].label.endsWith('background layer') && box.effects[6].label.endsWith('dom report'),
   box.effects.map((e) => e.label),
 )
 const style = globalThis.document.head.children[0]
@@ -415,6 +415,8 @@ ok('设置页组件跑起来后挂出了编辑器', editor?.className === 'cyre-
 
 const topUpLink = editor.querySelector('[data-role="top-up"]')
 const usageLink = editor.querySelector('[data-role="usage"]')
+const turnSoundBox = editor.querySelector('[data-role="turn-sound"]')
+ok('面板有本轮提示音开关', turnSoundBox !== null, turnSoundBox)
 ok(
   '面板底部有官方充值 / 余额入口',
   topUpLink?.attrs.href === 'https://platform.deepseek.com/top_up' &&
@@ -1122,9 +1124,12 @@ const usageEl = usageReg.component({
   },
 })
 const usageTotal = usageEl.children.find((child) => child?.type === 'b')
+const usageCost = usageEl.children.find((child) => child?.props?.className === 'cyre-turn-usage-cost')
 ok(
-  '本轮 token 组件显示总计并带输入/输出明细',
-  usageEl.props.className === 'cyre-turn-usage' && usageTotal?.children[0] === '150',
+  '本轮 token 组件显示总计、人民币估算并带输入/输出明细',
+  usageEl.props.className === 'cyre-turn-usage' &&
+    usageTotal?.children[0] === '150' &&
+    /^≈¥/.test(usageCost?.children[0] || ''),
   usageEl.children,
 )
 

@@ -244,6 +244,17 @@ body[data-dsh-cyrene] [data-composer-input][data-placeholder^="Describe what you
 
 新文案只有一个来源：`lib/client.js` 顶部的 `PLACEHOLDER_TEXT`（写进 CSS 模板里）。它只在输入框为空、且没有待处理队列时才出现。
 
+## 每轮 token 与提示音
+
+每轮结束后，`conversation.chat.turnTail` 会显示一枚「✦ 本轮消耗 N tokens · ≈¥0.00xx」的小胶囊，鼠标悬停可看输入/输出/推理明细。
+
+- 数据来自聊天包的 `TurnTailChatData.tokenUsage`，不额外请求、不伪造数字。
+- 人民币金额按 DeepSeek 官方 CNY 价估算：缓存命中输入、缓存未命中输入、输出分别计价；工作日高峰时段翻倍，法定节假日未单独扣除。
+- 只在 `tokenUsage` 字段存在时显示；历史轮次也会显示，但不会补响提示音。
+- 提示音是一段两音符的轻提示，只对刚结束（15 秒内）的新轮次播放；面板顶部的「本轮提示音」开关可关闭，偏好存在浏览器 `localStorage` 的 `cyrene-turn-sound`。
+
+> 金额是估算，实际扣费以 DeepSeek 平台账单为准；官方价格页：<https://api-docs.deepseek.com/zh-cn/quick_start/pricing/>。
+
 ## 取证旁路（诊断用）
 
 桌面外壳的活页面在受限沙箱里既截不了图、也没有 DOM 读取通道，皮肤出现视觉问题时只能让页面自己说。所以客户端半每 5 秒扫一遍 `body` 下的元素，把「带 `backdrop-filter` 的」和「面积 ≥15% 视口且背景半透明的」报给宿主：
