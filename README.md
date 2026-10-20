@@ -186,6 +186,10 @@ body[data-dsh-cyrene] img[alt^="昔涟·"]{max-width:var(--cyre-sticker-size);ma
 
 这两处不跟主题开关走（主题关掉也还在，因为它们是"昔涟在这儿"的标识，不是皮肤的一部分）。
 
+### 阅读区
+
+背景图开启时，对话滚动层只铺一层很薄的渐变纸（透明度约 0.14–0.34），照片仍然透得上来；正文继续用文字光晕。行内代码、引用块、表格和代码块各自有独立表面，避免和照片花纹糊在一起。这一层不用 `backdrop-filter`，因为对话滚动层的后代里有 `position:fixed` 的 Tooltip，加滤镜会换掉它们的包含块。
+
 ### 新会话欢迎页的形象与欢迎语
 
 那个"新会话里的鲸鱼"是 `@deepseek-ai/dsh-client-ui-conversation` 里 `HeroShell` 的内置兜底：鱼来自槽位 `conversation.hero.brand.mark` 的 `fallback`，旁边的内置文案是 i18n 键 `hero.headline`（zh「探索未至之境」）。官方 brand 包**不占用**这个槽位（它的注释里写着 "The conversation hero stays on its declaring package's animated fish fallback"），所以这是个空着的单占位槽，直接注册就能接管。
