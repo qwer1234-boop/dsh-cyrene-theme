@@ -1115,6 +1115,21 @@ ok(
   heroOffEl.children.map((c) => c && c.type),
 )
 
+const heroEmpty = await bootstrap({
+  ok: true,
+  value: { ...RESPONSE.value, hero: { image: 'meme/俏皮眨眼.png', title: '', ready: true, url: '/cyrene/hero' } },
+})
+const heroEmptyBox = makeCtx()
+heroEmpty.exports.apply(heroEmptyBox.ctx)
+await tick()
+const heroEmptyEl = heroEmptyBox.registered.find((r) => r.registration.name === 'conversation.hero.brand.mark').component()
+ok(
+  '欢迎语为空时只保留形象，不渲染标题',
+  heroEmptyEl.children.some((child) => child && child.type === 'img') &&
+    !heroEmptyEl.children.some((child) => child && child.props?.className === 'cyre-hero-title'),
+  heroEmptyEl.children.map((c) => c && (c.type || c.props?.className)),
+)
+
 const usageBox = makeCtx()
 const usageBoot = await bootstrap(RESPONSE, { autoHost: true })
 usageBoot.exports.apply(usageBox.ctx)

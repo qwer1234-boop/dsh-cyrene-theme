@@ -87,7 +87,7 @@ dsh plugin --profile desktop add github:berhbro/dsh-cyrene-theme
 ```json
 { "persona": "……人格提示词……", "enabled": true, "theme": true, "stickers": true,
   "stickerSize": 96, "customStickers": [],
-  "hero": { "image": "meme/俏皮眨眼.png", "title": "昔涟在呢，今天想做点什么？♪" },
+  "hero": { "image": "meme/俏皮眨眼.png", "title": "" },
   "background": { "enabled": true, "current": "", "rotate": false, "interval": 90, "dim": 0.6 },
   "rev": 3 }
 ```
@@ -216,7 +216,7 @@ body[data-dsh-cyrene] img[alt^="昔涟·"]{max-width:var(--cyre-sticker-size);ma
   [class*="_headline"]:has(.cyre-hero) [class*="_previewBadge"]{display:none}
   ```
 
-想换图：把新图丢进 `meme/`，改状态文件里的 `hero.image`（或让插件作者改 `DEFAULT_HERO`），然后重载插件行 / 重启 DSH。想换欢迎语：改 `hero.title`。
+想换图：把新图丢进 `meme/`，改状态文件里的 `hero.image`（或让插件作者改 `DEFAULT_HERO`），然后重载插件行 / 重启 DSH。想换欢迎语：改 `hero.title`；把它设成空串就只保留形象、不渲染标题。
 
 欢迎页的氛围装饰也在这一层：标题行背后有一层很淡的粉紫径向光晕，`.cyre-hero` 的 `::before/::after` 是两颗慢慢飘的星屑，立绘本身有 5.4 秒的轻微浮空。它们都只做装饰，`pointer-events:none`；开启 `prefers-reduced-motion: reduce` 时全部停下。
 
