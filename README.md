@@ -218,6 +218,8 @@ body[data-dsh-cyrene] img[alt^="昔涟·"]{max-width:var(--cyre-sticker-size);ma
 
 想换图：把新图丢进 `meme/`，改状态文件里的 `hero.image`（或让插件作者改 `DEFAULT_HERO`），然后重载插件行 / 重启 DSH。想换欢迎语：改 `hero.title`。
 
+欢迎页的氛围装饰也在这一层：标题行背后有一层很淡的粉紫径向光晕，`.cyre-hero` 的 `::before/::after` 是两颗慢慢飘的星屑，立绘本身有 5.4 秒的轻微浮空。它们都只做装饰，`pointer-events:none`；开启 `prefers-reduced-motion: reduce` 时全部停下。
+
 ### 输入框的默认占位提示
 
 `InputBar` 先把文案算出来：`placeholder ?? (parentOffline ? … : disabled ? … : canSteerQueue ? … : planActive ? … : t("placeholder.default"))`，然后**同一段文案写两个地方**——contenteditable 上的 `data-placeholder` 属性，和紧随其后的 `div[data-composer-placeholder]` 的**文本节点**（两者是 `div[class*="_grow"]` 里的紧邻兄弟；占位 div 的 CSS 是 `position:absolute;inset:4px 8px auto 14px`）。i18n 词典是单占位命名空间，重复 `register` 会直接 throw，所以**不能**靠注册词典覆盖；也没有任何 `attr(data-placeholder)` 的 CSS 在用它。
