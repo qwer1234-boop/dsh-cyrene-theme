@@ -1006,8 +1006,8 @@ ok(
   /\[class\*="_headline"\]:has\(\.cyre-hero\) \[class\*="_previewBadge"\]\{display:none\}/.test(cssText),
 )
 ok(
-  '艺术字 = 方正舒体打头 + 渐变裁字 + 描边阴影',
-  /font-family:"FZShuTi","方正舒体"/.test(cssText) &&
+  '艺术字 = HarmonyOS / MiSans 打头 + 渐变裁字 + 描边阴影',
+  /font-family:"HarmonyOS Sans SC Medium","HarmonyOS Sans SC","MiSans"/.test(cssText) &&
     /-webkit-background-clip:text/.test(cssText) &&
     /-webkit-text-stroke/.test(cssText),
 )
@@ -1029,7 +1029,7 @@ ok(
 ok(
   '艺术字是粉 → 白渐变，并靠一圈粉边把白尾托住',
   /background:linear-gradient\(168deg,#ff7cbb 0%,#ffa9d0 34%,#ffd8ea 68%,#fff7fc 100%\)/.test(cssText) &&
-    /-webkit-text-stroke:1\.1px #e8699f/.test(cssText),
+    /-webkit-text-stroke:\.9px #e8699f/.test(cssText),
 )
 ok(
   '渐变裁字不被支持时有纯色兜底',
