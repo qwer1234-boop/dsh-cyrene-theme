@@ -29,13 +29,26 @@ function ok(label, cond, extra) {
 }
 const tick = () => new Promise((r) => setTimeout(r, 30))
 
+/** 等一个异步条件；比固定 tick 稳，专门治启动时"异步重挂还没跑完"的竞态。 */
+async function waitFor(label, predicate, timeoutMs = 3000) {
+  const started = Date.now()
+  while (!predicate()) {
+    if (Date.now() - started > timeoutMs) throw new Error(`等待超时：${label}`)
+    await tick()
+  }
+}
+
 /** 复刻运行版的 ctx 形状（section() 会对非 finite order 抛错，跟真版一致）。 */
 function makeCtx(orders = {}) {
   const sections = []
   const routes = []
   const warnings = []
+  const infos = []
   const ctx = {
-    logger: { info() {}, warn: (...a) => warnings.push(a) },
+    logger: {
+      info: (...a) => infos.push(a.map((v) => String(v)).join(' ')),
+      warn: (...a) => warnings.push(a),
+    },
     effect(fn) {
       fn()
     },
@@ -57,7 +70,7 @@ function makeCtx(orders = {}) {
       },
     },
   }
-  return { ctx, sections, routes, warnings }
+  return { ctx, sections, routes, warnings, infos }
 }
 
 function makeReq(method, url, body) {
@@ -103,7 +116,7 @@ console.log(`临时 DSH_HOME = ${home}\n`)
 const { apply } = await import(MOD)
 const A = makeCtx({ DEPLOYMENT_PERSONA_PREFIX: 0, PLAN_POLICY: 500 })
 apply(A.ctx)
-await tick()
+await waitFor('启动异步加载与重挂完成', () => A.infos.some((line) => line.includes('表情包')))
 
 const s0 = lastSection(A)
 ok('section 名是 cyrene:persona', s0?.name === 'cyrene:persona', s0?.name)
