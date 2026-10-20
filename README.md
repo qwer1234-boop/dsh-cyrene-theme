@@ -87,7 +87,7 @@ dsh plugin --profile desktop add github:berhbro/dsh-cyrene-theme
 ```json
 { "persona": "……人格提示词……", "enabled": true, "theme": true, "stickers": true,
   "stickerSize": 96, "customStickers": [],
-  "hero": { "image": "meme/俏皮眨眼.png", "title": "让昔涟来帮帮你吧🎵" },
+  "hero": { "image": "meme/俏皮眨眼.png", "title": "昔涟在呢，今天想做点什么？♪" },
   "background": { "enabled": true, "current": "", "rotate": false, "interval": 90, "dim": 0.6 },
   "rev": 3 }
 ```

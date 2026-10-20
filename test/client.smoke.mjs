@@ -1092,9 +1092,9 @@ ok(
 ok(
   '宿主没给欢迎语时用兜底那句，并把末尾音符拆成单独一个 span',
   heroTitle.children[0].props.className === 'cyre-hero-title-text' &&
-    heroTitle.children[0].children[0] === '让昔涟来帮帮你吧' &&
+    heroTitle.children[0].children[0] === '昔涟在呢，今天想做点什么？' &&
     heroTitle.children[1].props.className === 'cyre-hero-note' &&
-    heroTitle.children[1].children[0] === '🎵',
+    heroTitle.children[1].children[0] === '♪',
   heroTitle.children.map((c) => (c ? c.children?.[0] : null)),
 )
 

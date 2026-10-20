@@ -302,7 +302,7 @@ ok(
   'GET /cyrene/state 带 hero（默认形象 + 欢迎语 + 就绪状态 + 字节地址）',
   heroState !== null && typeof heroState === 'object' &&
     heroState.image === 'meme/俏皮眨眼.png' &&
-    heroState.title === '让昔涟来帮帮你吧🎵' &&
+    heroState.title === '昔涟在呢，今天想做点什么？♪' &&
     heroState.ready === true && heroState.url === '/cyrene/hero',
   heroState,
 )
@@ -337,7 +337,7 @@ await route.handler(makeReq('GET', '/cyrene/hero'), rh6)
 ok('未就绪时 /cyrene/hero 回 404', rh6.statusCode === 404 && JSON.parse(rh6.body).error.code === 'not-found', rh6.statusCode)
 const rh7 = await post({ hero: { image: 'meme/没有这张.png' } })
 ok('文件不存在同样是未就绪', JSON.parse(rh7.body).value.hero.ready === false, JSON.parse(rh7.body).value.hero)
-const rh8 = await post({ hero: { image: 'meme/俏皮眨眼.png', title: '让昔涟来帮帮你吧🎵' } })
+const rh8 = await post({ hero: { image: 'meme/俏皮眨眼.png', title: '昔涟在呢，今天想做点什么？♪' } })
 const backHero = JSON.parse(rh8.body).value.hero
 ok('改回默认形象后重新就绪', backHero.ready === true && backHero.url === '/cyrene/hero', backHero)
 
